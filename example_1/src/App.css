@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  padding: 30px;
+  max-width: 300px;
+  margin: 50px auto;
+  border-radius: 12px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+p {
+  text-align: center;
+}
+
+button {
+  padding: 5px 32px;
+  cursor: pointer;
+}
+
+.wrapper div {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 12px;
+}
