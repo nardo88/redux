@@ -1,5 +1,9 @@
 import "./App.css";
-import { decrementActionCreator, incrementActionCreator } from "./reducer";
+import {
+  decrementActionCreator,
+  incrementActionCreator,
+  setValueActionCreator,
+} from "./reducer";
 import store from "./store";
 
 function App() {
@@ -11,6 +15,13 @@ function App() {
   return (
     <div className="wrapper">
       <p>{state.countState.count}</p>
+      <input
+        value={state.countState.value}
+        onChange={(e) => {
+          const action = setValueActionCreator(e.target.value);
+          store.dispatch(action);
+        }}
+      />
       <div>
         <button onClick={decrement}>-</button>
         <button onClick={increment}>+</button>

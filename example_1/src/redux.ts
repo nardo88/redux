@@ -1,17 +1,20 @@
-export interface IAction {
-  type: string;
-}
-export type ActionType = IAction & Record<string, any>;
+// Типизация actions
+export type ActionType<T = void> = T extends void
+  ? { type: string }
+  : { type: string; payload: T };
+
+// Типизация reducer
 export type ReducerType<S = any> = (
   state: S | undefined,
-  action: ActionType
+  action: ActionType<any>
 ) => S;
 
+// типизация root reducer
 interface IOptions<R extends Record<string, ReducerType>> {
   reducers: R;
 }
 
-// Хелпер для вывода типа состояния по редьюсерам
+// Хелпер для вывода типа состояния по reducer
 type ExtractState<R extends Record<string, ReducerType>> = {
   [K in keyof R]: ReturnType<R[K]>;
 };
@@ -25,7 +28,7 @@ class Store<R extends Record<string, ReducerType>> {
     this.reducers = options.reducers;
     this.listeners = [];
 
-    // Инициализация состояния для каждого редьюсера
+    // Инициализация состояния для каждого reducer
     const initialState = {} as ExtractState<R>;
     for (const key in this.reducers) {
       initialState[key] = this.reducers[key](undefined, { type: "@@INIT" });
